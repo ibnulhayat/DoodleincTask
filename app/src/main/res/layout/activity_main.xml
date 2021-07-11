@@ -15,6 +15,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/bt_shape_border"
         android:text="Show Category List"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -24,7 +24,6 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     Context context;
     List<SubCategory> subCategoryList;
 
-
     public SubCategoryAdapter(List<SubCategory> list) {
         this.subCategoryList = list;
     }
@@ -60,14 +59,10 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 SubCategory subList = list;
                 if (!list.isSelect()) {
                     subList.setSelect(true);
-                    //Toast.makeText(context, "not "+list.isSelect(), Toast.LENGTH_SHORT).show();
                     viewHolder.ivSubCategory.setImageResource(R.drawable.ic_baseline_check_24);
-                    Common.selectList.add(new SubCategory("", subCategoryList.get(i).getSubCateName(), true));
                 } else {
                     subList.setSelect(false);
-                    //Toast.makeText(context, "yes "+list.isSelect(), Toast.LENGTH_SHORT).show();
                     viewHolder.ivSubCategory.setImageResource(R.drawable.ic_baseline_add_24);
-                    Common.selectList.add(new SubCategory("", subCategoryList.get(i).getSubCateName(), false));
                 }
 
             }

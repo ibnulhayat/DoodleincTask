@@ -18,10 +18,10 @@ import java.util.List;
 public class SelectitemAdapter extends RecyclerView.Adapter<SelectitemAdapter.MiniViewHolder> {
 
     Context context;
-    List<SubCategory> listItem;
+    List<String> listItem;
 
 
-    public SelectitemAdapter(Context context, List<SubCategory> listItem) {
+    public SelectitemAdapter(Context context, List<String> listItem) {
         this.context = context;
         this.listItem = listItem;
     }
@@ -38,8 +38,7 @@ public class SelectitemAdapter extends RecyclerView.Adapter<SelectitemAdapter.Mi
     @Override
     public void onBindViewHolder(@NonNull final SelectitemAdapter.MiniViewHolder miniViewHolder, int i) {
 
-        final SubCategory list = listItem.get(i);
-        final String sub_cat_name = list.getSubCateName();
+        final String sub_cat_name = listItem.get(i);
         miniViewHolder.subCategoryName.setText(sub_cat_name);
     }
 

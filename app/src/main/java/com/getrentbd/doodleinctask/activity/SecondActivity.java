@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import com.getrentbd.doodleinctask.Common;
 import com.getrentbd.doodleinctask.R;
 import com.getrentbd.doodleinctask.adapter.CategoryListAdapter;
 import com.getrentbd.doodleinctask.model.CategoryList;
@@ -37,13 +38,14 @@ public class SecondActivity extends AppCompatActivity {
     private ImageView imageView;
     private RequestQueue requestQueue;
     private String url = "https://www.test.api.liker.com/get_categories";
-    private List<CategoryList> categoryList = new ArrayList<>();
+    private List<CategoryList> categoryList ;
     private CategoryListAdapter categoryListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
+        categoryList = Common.categoryLists;
         rvCategoryList = findViewById(R.id.rvCategoryList);
         tvSave = findViewById(R.id.tvSave);
         imageView = findViewById(R.id.imageView);
@@ -51,16 +53,17 @@ public class SecondActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvCategoryList.setLayoutManager(layoutManager);
-        rvCategoryList.setHasFixedSize(true);
         categoryListAdapter = new CategoryListAdapter(categoryList);
         rvCategoryList.setAdapter(categoryListAdapter);
 
-        loadCategory();
+        if(categoryList.size() == 0)
+            loadCategory();
 
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SecondActivity.this, MainActivity.class));
+                finish();
             }
         });
 
@@ -96,7 +99,6 @@ public class SecondActivity extends AppCompatActivity {
                             String subCateName = subObject.getString("sub_category_name");
                             subCategory.add((new SubCategory(subCateId,subCateName,false)));
                         }
-
                         categoryList.add(new CategoryList(categoryId,categoryName,subCategory));
 
                     }

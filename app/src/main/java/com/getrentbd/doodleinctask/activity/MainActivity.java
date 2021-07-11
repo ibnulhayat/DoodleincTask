@@ -13,12 +13,15 @@ import com.getrentbd.doodleinctask.Common;
 import com.getrentbd.doodleinctask.R;
 import com.getrentbd.doodleinctask.adapter.SelectitemAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private Button button;
     private RecyclerView rvSelectItem;
-
-    private RecyclerView rvCategoryList;
+    private List<String> selectItem = new ArrayList<>();
     private SelectitemAdapter selectitemAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +36,30 @@ public class MainActivity extends AppCompatActivity {
                 startActivity( new Intent(MainActivity.this, SecondActivity.class));
             }
         });
+        if(Common.categoryLists.size() > 0){
+            for(int i = 0; i < Common.categoryLists.size(); i++){
+                if(Common.categoryLists.get(i).isSelect()){
+                    selectItem.add(Common.categoryLists.get(i).getCategoryName());
+                    for(int j = 0; j<Common.categoryLists.get(i).getSubCategory().size(); j++){
+                        if(Common.categoryLists.get(i).getSubCategory().get(j).isSelect()){
+                            selectItem.add(Common.categoryLists.get(i).getSubCategory().get(j).getSubCateName());
+                        }
+                    }
+                }else {
+                    for(int j = 0; j<Common.categoryLists.get(i).getSubCategory().size(); j++){
+                        if(Common.categoryLists.get(i).getSubCategory().get(j).isSelect()){
+                            selectItem.add(Common.categoryLists.get(i).getSubCategory().get(j).getSubCateName());
+                        }
+                    }
+                }
+
+            }
+        }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
         rvSelectItem.setLayoutManager(layoutManager);
         rvSelectItem.setHasFixedSize(true);
-        selectitemAdapter = new SelectitemAdapter(MainActivity.this, Common.selectList);
+        selectitemAdapter = new SelectitemAdapter(MainActivity.this, selectItem);
         rvSelectItem.setAdapter(selectitemAdapter);
         selectitemAdapter.notifyDataSetChanged();
     }
